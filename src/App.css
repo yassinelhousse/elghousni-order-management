@@ -132,6 +132,8 @@
 
 /* --- NEW STYLES FOR COMMANDS PAGE --- */
 .orders-list {
+  padding: 20px;
+  margin-left: 250px;
   background: #fff;
   padding: 30px;
   border-radius: 16px;
@@ -175,4 +177,99 @@
 
 .orders-list small {
   color: #666;
+}
+
+
+.order-items {
+  list-style: none;
+  padding: 0;
+}
+
+.order-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.order-status {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.order-details {
+  margin-top: 10px;
+  border-top: 1px dashed #ccc;
+  padding-top: 8px;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+
+
+.order-form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.order-form h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #1f1f2e;
+}
+
+.order-form input,
+.order-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  background-color: #4b59f7;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #3d4be0;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
 }

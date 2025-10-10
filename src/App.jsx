@@ -1,32 +1,44 @@
 import React, { useState } from "react";
 import Sidebar from "./components/SideBar";
 import Card from "./components/Productcard";
-
+import OrdersList from "./components/OrdersList"; // ✅ Corrected import name
 import products from "./data/products.json";
 import "./App.css";
 
 export default function App() {
-
   const [activePage, setActivePage] = useState("products");
   const [orders, setOrders] = useState([]);
 
-  // handle commander button when you click
+  // ✅ When user clicks "Commander"
   const handleCommand = (product) => {
     const newOrder = {
-      id: Date.now(), // give a unique id
+      id: Date.now(), // unique id
       productName: product.name,
       price: product.price,
       image: product.image,
       date: new Date().toLocaleDateString(),
+      status: "pending", // default status
     };
 
     setOrders([...orders, newOrder]);
     alert(`${product.name} a été ajouté à la commande ✅`);
   };
 
-  // Navigation callback for side bar
+  // ✅ Navigation
   const handleNavigate = (page) => {
     setActivePage(page);
+  };
+
+  // ✅ Change order status
+  const handleChangeStatus = (id, newStatus) => {
+    setOrders((prev) =>
+      prev.map((o) => (o.id === id ? { ...o, status: newStatus } : o))
+    );
+  };
+
+  // ✅ Delete order
+  const handleDeleteOrder = (id) => {
+    setOrders((prev) => prev.filter((o) => o.id !== id));
   };
 
   return (
@@ -51,22 +63,11 @@ export default function App() {
         )}
 
         {activePage === "commands" && (
-          <div className="orders-list">
-            <h2>🧾 Liste des Commandes</h2>
-            {orders.length === 0 ? (
-              <p>Aucune commande pour le moment.</p>
-            ) : (
-              <ul>
-                {orders.map((o) => (
-                  <li key={o.id}>
-                    <img src={o.image} alt={o.productName} width="50" />
-                    <strong>{o.productName}</strong> — {o.price} Dh —{" "}
-                    <small>{o.date}</small>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+          <OrdersList
+            orders={orders}
+            onChangeStatus={handleChangeStatus}
+            onDelete={handleDeleteOrder}
+          />
         )}
       </div>
     </div>
