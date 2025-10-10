@@ -1,0 +1,39 @@
+[
+  {
+    "id": "p1",
+    "name": "Huile d'olive extra vierge 750ml",
+    "price": 120,
+    "image": "/images/olive-oil.jpg"
+  },
+  {
+    "id": "p2",
+    "name": "Huile d'argane extra vierge 1L",
+    "price": 160,
+    "image": "/images/argane.jpg"
+  },
+
+  {
+    "id": "p3",
+    "name": "Almond naturel 200g",
+    "price": 35,
+    "image": "/images/almond.jpg"
+  },
+  {
+    "id": "p4",
+    "name": "Miel naturel 500g",
+    "price": 90,
+    "image": "/images/honey.jpg"
+  },
+  {
+    "id": "p5",
+    "name": "Savon artisanal à l'huile d'olive",
+    "price": 25,
+    "image": "/images/savon.jpg"
+  },
+   {
+    "id": "p6",
+    "name": "Black tea naturel",
+    "price": 25,
+    "image": "/images/black tea.jpg"
+  }
+]

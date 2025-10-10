@@ -1,0 +1,178 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #1f1f2e;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  margin: 50px 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.menu li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.menu li:hover,
+.menu li.active {
+  background-color: #215103;
+  border-radius: 8px;
+  padding-left: 10px;
+  height: 40px;
+  padding-top: 8px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px #0000001a;
+  overflow: hidden;
+  width: 350px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  height: 500px;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-image {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.card-body {
+  padding: 12px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f1f2e;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-price {
+  font-weight: bold;
+  color: #4b59f7;
+  font-size: 20px;
+}
+
+.card-btn {
+  background-color: #4b59f7;
+  color: #fff;
+  border: none;
+  padding: 10px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 20px;
+  margin-right: 30px;
+  margin-top: 10px;
+}
+
+.card-btn:hover {
+  background-color: #3d4be0;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f6fa;
+}
+
+/* Keep sidebar on the left */
+.app-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+
+
+.product-list{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-left: 200px;
+
+  
+  gap: 40px;
+  padding: 40px;
+  
+
+}
+
+/* --- NEW STYLES FOR COMMANDS PAGE --- */
+.orders-list {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  width: 80%;
+  margin: 40px auto;
+  display: flex;
+}
+
+.orders-list h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1f1f2e;
+}
+
+.orders-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.orders-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+}
+
+.orders-list li img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.orders-list strong {
+  flex: 1;
+}
+
+.orders-list small {
+  color: #666;
+}
