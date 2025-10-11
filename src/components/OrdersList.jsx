@@ -15,7 +15,7 @@ export default function OrdersList({orders = [], onChangeStatus, onDelete}){
     
     const [expanded, setExpanded]= useState(null);//// id de la commande ouverte
 
-    // tri des commandes plus récentes d’abord
+    // tri des commandes plus récentes dabord
 
     const sortedOrders= [...orders].sort(
         (a,b) => new Date(b.date)  -new Date(a.date)
