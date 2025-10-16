@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import Sidebar from "./components/SideBar";
 import Card from "./components/Productcard";
 import OrdersList from "./components/OrdersList"; 
+
 import products from "./data/products.json";
+
+
 import "./App.css";
 
 export default function App() {
@@ -41,6 +44,11 @@ export default function App() {
     setOrders((prev) => prev.filter((o) => o.id !== id));
   };
 
+  const handleAddOrder = (order) =>{
+    setOrders([...orders,order]);
+
+  };
+
   return (
     <div className="app-container">
       <div className="app-sidebar">
@@ -63,13 +71,18 @@ export default function App() {
         )}
 
         {activePage === "commands" && (
-          <OrdersList
-            orders={orders}
-            onChangeStatus={handleChangeStatus}
-            onDelete={handleDeleteOrder}
-          />
+          <>
+            
+            <OrdersList
+              orders={orders}
+              onChangeStatus={handleChangeStatus}
+              onDelete={handleDeleteOrder}
+            />
+          </>
         )}
       </div>
     </div>
+    
   );
+  
 }
