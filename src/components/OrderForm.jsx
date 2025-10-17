@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import useStore from "../store/useStore";
-import "./OrderForm.css";
+import useStore from "../Store/useStore";
+import "./OrdersList.css";
 
 export default function OrderForm() {
   const { panier, addOrder, clearPanier } = useStore(); // panier = products added

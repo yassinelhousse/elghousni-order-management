@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "./components/SideBar";
 import Card from "./components/Productcard";
 import OrdersList from "./components/OrdersList";
-import useStore from "./store/useStore";
+import useStore from "./Store/useStore";
 import "./App.css";
 
 export default function App() {
@@ -85,8 +85,10 @@ export default function App() {
         )}
 
         {/* ✅ PAGE COMMANDES */}
-        {activePage === "commands" && <OrdersList />}
-
+        
+        {activePage === "commands" && (
+          <OrdersList orders={orders} />
+        )}
       </div>
     </div>
   );

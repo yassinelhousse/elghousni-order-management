@@ -1,5 +1,5 @@
 import React from "react";
-import useStore from "../store/useStore";
+import useStore from "../Store/useStore";
 import "./OrdersList.css";
 
 const STATUS = {
