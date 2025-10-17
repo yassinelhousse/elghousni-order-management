@@ -1,84 +1,106 @@
-// // import React, { useState } from "react";
-// // import products from "../data/products.json";
+import React, { useState } from "react";
+import useStore from "../store/useStore";
 
-//  export default function OrderForm({ onAddOrder }) {
-// //   const [clientName, setClientName] = useState("");
-// //   const [phone, setPhone] = useState("");
-// //   const [selectedProduct, setSelectedProduct] = useState(null);
-// //   const [error, setError] = useState("");
+export default function OrderForm({ onAddOrder }) {
+  const { products } = useStore();
+  const [clientName, setClientName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [selected, setSelected] = useState([]); // {id, name, price, qty}
 
-// //   const handleSubmit = (e) => {
-// //     e.preventDefault();
+  // add one product or increase qty
+  const addProduct = (p) => {
+    setSelected((prev) => {
+      const found = prev.find((x) => x.id === p.id);
+      if (found) return prev.map((x) => (x.id === p.id ? { ...x, qty: x.qty + 1 } : x));
+      return [...prev, { id: p.id, name: p.name, price: p.price, qty: 1 }];
+    });
+  };
 
-// //     if (!clientName || !phone || !selectedProduct) {
-// //       setError("⚠️ Veuillez remplir tous les champs et choisir un produit.");
-// //       return;
-// //     }
+  const updateQty = (id, qty) => {
+    setSelected((prev) => prev.map((x) => (x.id === id ? { ...x, qty: Math.max(1, qty) } : x)));
+  };
 
-// //     const product = products.find((p) => p.id === Number(selectedProduct));
+  const removeItem = (id) => setSelected((prev) => prev.filter((x) => x.id !== id));
 
-// //     const newOrder = {
-// //       id: Date.now(),
-// //       clientName,
-// //       phone,
-// //       productName: product.name,
-// //       image: product.image,
-// //       price: product.price,
-// //       date: new Date().toLocaleString(),
-// //       status: "pending",
-// //     };
+  const subtotal = selected.reduce((s, it) => s + it.price * it.qty, 0);
 
-// //     onAddOrder(newOrder);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!clientName || !phone || selected.length === 0) {
+      alert("Veuillez remplir le nom, téléphone et sélectionner au moins un produit.");
+      return;
+    }
 
-// //     // Reset form
-// //     setClientName("");
-// //     setPhone("");
-// //     setSelectedProduct(null);
-// //     setError("");
-// //     alert("✅ Commande ajoutée avec succès !");
-// //   };
+    const newOrder = {
+      id: Date.now(),
+      clientName,
+      phone,
+      items: selected,
+      total: subtotal,
+      date: new Date().toISOString(),
+      status: "pending",
+    };
 
-// //   return (
-// //     <div className="order-form">
-// //       <h2>🧾 Nouvelle Commande</h2>
+    onAddOrder(newOrder);
 
-// //       {error && <p className="error">{error}</p>}
+    // reset
+    setClientName("");
+    setPhone("");
+    setSelected([]);
+  };
 
-// //       <form onSubmit={handleSubmit}>
-// //         <label>Nom du client :</label>
-// //         <input
-// //           type="text"
-// //           value={clientName}
-// //           onChange={(e) => setClientName(e.target.value)}
-// //           placeholder="Entrez le nom du client"
-// //         />
+  return (
+    <div style={{ marginBottom: 20, background: "#fff", padding: 16, borderRadius: 10 }}>
+      <h3>📝 Créer une commande</h3>
 
-// //         <label>Numéro de téléphone :</label>
-// //         <input
-// //           type="tel"
-// //           value={phone}
-// //           onChange={(e) => setPhone(e.target.value)}
-// //           placeholder="06xxxxxxxx"
-// //         />
+      <form onSubmit={handleSubmit}>
+        <div style={{ display: "flex", gap: 10, marginBottom: 10 }}>
+          <input placeholder="Nom du client" value={clientName} onChange={(e) => setClientName(e.target.value)} />
+          <input placeholder="Téléphone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        </div>
 
-// //         <label>Produit :</label>
-// //         <select
-// //           value={selectedProduct || ""}
-// //           onChange={(e) => setSelectedProduct(e.target.value)}
-// //         >
-// //           <option value="">-- Sélectionnez un produit --</option>
-// //           {products.map((p) => (
-// //             <option key={p.id} value={p.id}>
-// //               {p.name} - {p.price} Dh
-// //             </option>
-// //           ))}
-// //         </select>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 12 }}>
+          <div style={{ maxHeight: 280, overflowY: "auto" }}>
+            <h4>Catalogue</h4>
+            {products.map((p) => (
+              <div key={p.id} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px solid #eee" }}>
+                <div>{p.name}</div>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <div style={{ minWidth: 60, textAlign: "right" }}>{p.price} MAD</div>
+                  <button type="button" onClick={() => addProduct(p)}>+ Ajouter</button>
+                </div>
+              </div>
+            ))}
+          </div>
 
-// //         <button type="submit" className="submit-btn">
-// //           Créer la commande
-// //         </button>
-// //       </form>
-// //     </div>
-// //   );
-// // }
+          <aside style={{ background: "#fafafa", padding: 10, borderRadius: 8 }}>
+            <h4>Panier</h4>
+            {selected.length === 0 && <div>Aucun produit sélectionné</div>}
+            <ul style={{ listStyle: "none", padding: 0 }}>
+              {selected.map((it) => (
+                <li key={it.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "8px 0" }}>
+                  <div>
+                    <div style={{ fontWeight: 700 }}>{it.name}</div>
+                    <div className="small">{it.price} MAD</div>
+                  </div>
+                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                    <input type="number" value={it.qty} min="1" onChange={(e) => updateQty(it.id, Number(e.target.value))} style={{ width: 60 }} />
+                    <div style={{ width: 80, textAlign: "right" }}>{(it.price * it.qty).toFixed(2)} MAD</div>
+                    <button type="button" onClick={() => removeItem(it.id)}>✕</button>
+                  </div>
+                </li>
+              ))}
+            </ul>
 
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
+              <strong>Total</strong>
+              <strong>{subtotal.toFixed(2)} MAD</strong>
+            </div>
+
+            <button type="submit" style={{ marginTop: 12 }}>Créer commande</button>
+          </aside>
+        </div>
+      </form>
+    </div>
+  );
+}
