@@ -1,16 +1,30 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import "./Sidebar.css"; // we’ll style it after
 
-export default function Sidebar() {
-  const activeClass = ({ isActive }) => (isActive ? "active" : "");
+export default function Sidebar({ onNavigate, active }) {
   return (
     <div className="sidebar">
-      <ul className="menu">
-        <li><NavLink to="/" className={activeClass}>Dashboard</NavLink></li>
-        <li><NavLink to="/orders" className={activeClass}>COmmandes</NavLink></li>
-        <li><NavLink to="/products" className={activeClass}>Prouduit</NavLink></li>
+      <h2 className="sidebar-title">📦 Elghousni</h2>
 
-       
+      <ul className="sidebar-menu">
+        <li
+          className={active === "products" ? "active" : ""}
+          onClick={() => onNavigate("products")}
+        >
+          🛍️ Produits
+        </li>
+        <li
+          className={active === "panier" ? "active" : ""}
+          onClick={() => onNavigate("panier")}
+        >
+          🛒 Panier
+        </li>
+        <li
+          className={active === "commands" ? "active" : ""}
+          onClick={() => onNavigate("commands")}
+        >
+          📦 Commandes
+        </li>
       </ul>
     </div>
   );
